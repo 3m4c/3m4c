@@ -16,7 +16,8 @@ cursor.execute("""
 rows = cursor.fetchall()
 
 
-# creating a dictionary where symbols are the keys and ids are the values
+# creating a dictionary where symbols are the keys and ids are the values:
+# we need the ids in order to be able to reference the stock table
 stock_dict = {}
 for row in rows:
     symbol = row['symbol']
