@@ -6,7 +6,7 @@ connection = psycopg2.connect(host = config.DB_HOST, database = config.DB_NAME, 
 cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
 cursor.execute(
-    '''SELECT message,  FROM mention'''
+    '''SELECT message, stock_symbol,  FROM mention'''
 )
 rows = cursor.fetchall()
 
