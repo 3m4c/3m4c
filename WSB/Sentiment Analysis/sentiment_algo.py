@@ -36,14 +36,16 @@ def WSB_sentiment (message, score, num_comments):
         elif word in bearish:
             bearish_count += 1
     print(bullish_count)
-    sentiment = bullish_count - bearish_count
-    final_sentiment = magnitude * sentiment
+    direction = bullish_count - bearish_count
+    sentiment = magnitude * direction
         
         
     if abs(sentiment) > 1:
-        return final_sentiment
+        return sentiment
     elif bearish_count == 0 or bullish_count == 0:
-        return final_sentiment
+        return sentiment
     
-
+for row in rows:
+    result = WSB_sentiment(row['message'], row['score'], row['num_comments'])
+    print(result)
 
