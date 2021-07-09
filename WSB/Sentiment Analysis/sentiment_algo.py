@@ -42,7 +42,7 @@ def WSB_sentiment (message, score, num_comments):
         
     if abs(sentiment) > 1:
         return final_sentiment
-    elif bearish count == 0 or bullish_count == 0:
+    elif bearish_count == 0 or bullish_count == 0:
         return final_sentiment
     
 
