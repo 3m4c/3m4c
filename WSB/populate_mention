@@ -1,0 +1,20 @@
+import config
+import datetime as dt
+from psaw import PushshiftAPI     # Pushshift is a database of all Reddit's posts
+import praw                       # praw is the Reddit API, and it is useful to know the score and the comments of a post
+import psycopg2
+import psycopg2.extras
+
+connection = psycopg2.connect(host = config.DB_HOST, database = config.DB_NAME, user = config.DB_USER, password = config.DB_PASS)
+cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
+reddit = praw.Reddit(client_id =config.R_KEY, client_secret =config.R_SECRET, username =config.R_USERNAME, password =config.R_PASSWORD, user_agent = 'https://github.com/3m4c')
+api = PushshiftAPI()
+
+cursor.execute(
+    '''SELECT * FROM stock'''
+)
+rows = cursor.fetchall()
+
+stocks = {}
+for row in rows:
+    stocks['$' + row['symbol']] = row['id']
