@@ -9,6 +9,8 @@ Therefore, I will try some algorithms first.
 Firstly, I will use textblob to determine sentiment.
 Then, I will try to do it manually, by creating a list of positive words and a list of negative words, 
 and assigning a sentiment based on that, the score and the num_comments.
+I may also open up the jpeg link attached and see if it is a green or a red Robinhood screenshot, 
+even though it is not a definitive indication of bullish/bearish sentiment.
 Now that I notice, I will need a sentiment table to track the sentiment evolution through time.
 So, let's see how it goes.
 
