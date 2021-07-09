@@ -40,7 +40,7 @@ for submission in submissions:
     # many sumbmissions do not have a ticker, therefore we can discard them
     if len(cashtags) > 0:
 
-        # iterating through the tickers if there are more than one in a single post
+        # iterating through the tickers, if there are more than one in a single post
         for cashtag in cashtags:
             
             # we use Pushshift to extract the submission id, then we use Reddit to extract the score of that submission
