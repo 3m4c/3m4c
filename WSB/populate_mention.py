@@ -11,15 +11,18 @@ reddit = praw.Reddit(client_id =config.R_KEY, client_secret =config.R_SECRET, us
 api = PushshiftAPI()
 
 
-# creating a dictionary whose keys are the tickers with the $ sign (e.g. $GME) 
-# and the values are their ids from the stock table
+# creating two similar dictionaries where the keys are the stocks ids from the stock table
+# and the values are the tickers with and without the $ sign (e.g. $GME) 
 cursor.execute(
     '''SELECT * FROM stock'''
 )
 rows = cursor.fetchall()
-stocks = {}
+stock_dict1 = {}
+stock_dict2 = {}
 for row in rows:
-    stocks['$' + row['symbol']] = row['id']
+    symbol = row['symbol']
+    stock_dict1['$' + symbol] = row['id']
+    stock_dict2[symbol] = row['id']
 
 # scraping posts from start_time to end_time (we can choose any interval we want)
 start_time = int(dt.datetime(2021, 1, 1).timestamp())
@@ -33,15 +36,15 @@ submissions = api.search_submissions(after = start_time,
 # iterating through the submissions (posts)
 for submission in submissions:
 
-    # splitting the title into words: any $ticker get (temporarily) stored in the cashtags list
+    # splitting the title into words: any ticker get (temporarily) stored in the cashtags list
     words = submission.title.split()
-    cashtags = list(set(filter(lambda word: word.lower().startswith('$'), words)))
+    tickers = list(set(filter(lambda word: word.lower().startswith('$') or word in stock_dict2, words)))
 
     # many sumbmissions do not have a ticker, therefore we can discard them
-    if len(cashtags) > 0:
+    if len(tickers) > 0:
 
         # iterating through the tickers, if there are more than one in a single post
-        for cashtag in cashtags:
+        for ticker in tickers:
             
             # we use Pushshift to extract the submission id, then we use Reddit to extract the score of that submission
             submission_id = submission.id
@@ -51,17 +54,26 @@ for submission in submissions:
             # we only need the posts with greater visibility
             if score > 100:
                 
-                # finally, we can fetch all the data we need
-                submitted_time = dt.datetime.fromtimestamp(submission.created_utc).isoformat()
-                num_comments = sub_praw.num_comments
+                #we need to make sure that the ticker is a real one
+                if ticker in stock_dict1 or ticker in stock_dict2:
+                
+                    # finally, we can fetch all the data we need
+                    submitted_time = dt.datetime.fromtimestamp(submission.created_utc).isoformat()
+                    num_comments = sub_praw.num_comments
+                    
+                    #the ticker might be in the first or in the second dictionary, depending on the initial $
+                    try:
+                        stock_id = stock_dict1[ticker]
+                    except:
+                        stock_id = stock_dict2[ticker]
 
-                try:
-                    cursor.execute('''
-                    INSERT INTO mention (dt, stock_id, message, url, post_id, score, num_comments)
-                    VAlUES (%s, %s, %s, %s, %s, %s, %s)
-                    ''', (submitted_time, stocks[cashtag], submission.title, submission.url, submission_id, score, num_comments))
-                    connection.commit()
+                    try:
+                        cursor.execute('''
+                        INSERT INTO mention (dt, stock_id, message, url, post_id, score, num_comments)
+                        VAlUES (%s, %s, %s, %s, %s, %s, %s)
+                        ''', (submitted_time, stock_id, submission.title, submission.url, submission_id, score, num_comments))
+                        connection.commit()
 
-                except Exception as e:
-                    print(e)
-                    connection.rollback()
+                    except Exception as e:
+                        print(e)
+                        connection.rollback()
