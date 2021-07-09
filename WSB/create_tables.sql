@@ -23,6 +23,7 @@ SELECT create_hypertable('stock_price', 'dt');
 
 CREATE TABLE mention (
     stock_id INTEGER,
+    stock_symbol TEXT NOT NULL,
     dt TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     message TEXT NOT NULL,
     post_id TEXT NOT NULL,
