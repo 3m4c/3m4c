@@ -12,17 +12,20 @@ api = PushshiftAPI()
 
 
 # creating two similar dictionaries where the keys are the stocks ids from the stock table
-# and the values are the tickers with and without the $ sign (e.g. $GME) 
+# and the values are the tickers with and without the $ sign (e.g. $GME)
+# the third dictionary is the inverse of the second one
 cursor.execute(
     '''SELECT * FROM stock'''
 )
 rows = cursor.fetchall()
 stock_dict1 = {}
 stock_dict2 = {}
+stock_dict3 = {}
 for row in rows:
     symbol = row['symbol']
     stock_dict1['$' + symbol] = row['id']
     stock_dict2[symbol] = row['id']
+    stock_dict3[row['id']] = symbol
 
 # scraping posts from start_time to end_time (we can choose any interval we want)
 start_time = int(dt.datetime(2021, 1, 1).timestamp())
@@ -66,12 +69,14 @@ for submission in submissions:
                         stock_id = stock_dict1[ticker]
                     except:
                         stock_id = stock_dict2[ticker]
-
+                        
+                    stock_symbol = stock_dict3[stock_id]
+                    
                     try:
                         cursor.execute('''
-                        INSERT INTO mention (dt, stock_id, message, url, post_id, score, num_comments)
-                        VAlUES (%s, %s, %s, %s, %s, %s, %s)
-                        ''', (submitted_time, stock_id, submission.title, submission.url, submission_id, score, num_comments))
+                        INSERT INTO mention (dt, stock_id, stock_symbol, message, url, post_id, score, num_comments)
+                        VAlUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                        ''', (submitted_time, stock_id, stock_symbol, submission.title, submission.url, submission_id, score, num_comments))
                         connection.commit()
 
                     except Exception as e:
