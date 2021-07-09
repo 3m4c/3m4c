@@ -13,7 +13,8 @@ rows = cursor.fetchall()
 def WSB_sentiment (message, score, num_comments):
     
     bullish = ['moon', 'mars', 'yolo', 'all', 'strong', "can't", 'tits', 'c', 'calls', 'call', 'btfd', 'undervalued', 'gains', 'gain', 'bull', 'bulls', 'bullish', 
-               'buy', 'dip', 'fuel', 'fire', 'squeeze', 'squeezing', 'squoze', 'squozing', 'holding', 'bought', 'hold', 'hodl', 'hodling', 'holding',
+               'buy', 'dip', 'fuel', 'fire', 'squeeze', 'squeezing', 'squoze', 'squozing', 'holding', 'bought', 'hold', 'hodl', 'hodling', 'holding', 'yoloed',
+               "yolo'ed", 'mooning',
                '💎', '🤲', '💎🤲', '🤤🤤🤤', '🌝', '💎🤲🚀', '💎🙌🏻', '🙌🏻', '💎💎🙌🙌', '🚀💎👐', '💎✋🚀', 
                '🦍', '🦍🦍', '🦍🦍🦍', '🦍🦍🦍🦍', '🦍🦍🦍🦍🦍', '🦍🦍🦍🦍🦍🦍', '🦍🦍🦍🦍🦍🦍🦍', '🦍🦍🦍🦍🦍🦍🦍🦍',
                '🚀', '🚀🚀', 🚀🚀🚀', '🚀🚀🚀🚀', '🚀🚀🚀🚀🚀', '🚀🚀🚀🚀🚀🚀', '🚀🚀🚀🚀🚀🚀🚀', '🚀🚀🚀🚀🚀🚀🚀🚀', 
@@ -26,6 +27,7 @@ def WSB_sentiment (message, score, num_comments):
     
     bullish_count = 0
     bearish_count = 0
+    magnitude = score + num_comments
     
     words = message.lower().split()
     for word in words:
@@ -33,9 +35,15 @@ def WSB_sentiment (message, score, num_comments):
             bullish_count += 1
         elif word in bearish:
             bearish_count += 1
-        return bullish_count
-        return bearish count
-            
+        print(bullish_count)
+        sentiment = bullish_count - bearish_count
+        final_sentiment = magnitude * sentiment
         
+        
+        if abs(sentiment) > 1:
+            return final_sentiment
+        elif bearish count == 0 or bullish_count == 0:
+            return final_sentiment
+    
 
 
