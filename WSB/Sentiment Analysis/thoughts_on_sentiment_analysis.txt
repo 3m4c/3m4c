@@ -11,3 +11,6 @@ Then, I will try to do it manually, by creating a list of positive words and a l
 and assigning a sentiment based on that, the score and the num_comments.
 Now that I notice, I will need a sentiment table to track the sentiment evolution through time.
 So, let's see how it goes.
+
+Results:
+the first method is cleary ineffective: textblob is not able to distinguish positive sentiment from negative sentiment;
