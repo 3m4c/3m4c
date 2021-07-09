@@ -26,7 +26,8 @@ CREATE TABLE mention (
     dt TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     message TEXT NOT NULL,
     post_id TEXT NOT NULL,
-    score INTEGER NOT NULL
+    score INTEGER NOT NULL,
+    num_comments INTEGER NOT NULL,
     url TEXT NOT NULL,
     sentiment TEXT NOT NULL,
     PRIMARY KEY (stock_id, dt),
