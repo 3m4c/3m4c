@@ -9,7 +9,7 @@ cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 api = tradeapi.REST(config.API_KEY, config.API_SECRET, base_url = config.API_URL)
 
 
-# collecting a list of (id, symbol) tuples from the stock table and storing them into the rows object
+# collecting an array of [id, symbol] arrays from the stock table and storing them into the rows object
 cursor.execute("""
     SELECT id, symbol, name FROM stock
 """)
