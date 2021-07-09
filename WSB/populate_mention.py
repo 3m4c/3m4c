@@ -50,6 +50,8 @@ for submission in submissions:
             
             # we only need the posts with greater visibility
             if score > 100:
+                
+                # finally, we can fetch all the data we need
                 submitted_time = dt.datetime.fromtimestamp(submission.created_utc).isoformat()
                 num_comments = sub_praw.num_comments
 
