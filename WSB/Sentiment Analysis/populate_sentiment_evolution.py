@@ -12,8 +12,11 @@ rows = cursor.fetchall()
 
 for row in rows:
     sentiment = row['sentiment']
+    bullish_sentiment = 0
+    bearish_sentiment = 0
     if sentiment > 0:
         bullish_sentiment = sentiment
+
     elif sentiment < 0:
         bearish_sentiment = (-1) * sentiment
 
