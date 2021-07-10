@@ -52,5 +52,17 @@ def WSB_sentiment (message, score, num_comments):
     
 for row in rows:
     result = WSB_sentiment(row['message'], row['score'], row['num_comments'])
-    print(result)
+    post_id = row['post_id']
+    stock_symbol = row['stock_symbol']
 
+    try:
+        cursor.execute('''
+        UPDATE mention
+        SET sentiment = %s
+        WHERE post_id = %s AND stock_symbol = %s
+        ''', (result, post_id, stock_symbol))
+        connection.commit()
+
+    except Exception as e:
+        print(e)
+        connection.rollback()
