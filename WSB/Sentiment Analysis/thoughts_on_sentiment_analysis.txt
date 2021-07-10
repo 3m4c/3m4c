@@ -7,3 +7,4 @@ So, let's see how it goes.
 
 Results:
 the first method is cleary ineffective: textblob is not able to distinguish positive sentiment from negative sentiment; 
+by contrast, the second method seems to be extremely effective, however I have to test it on the march 2020 (bear month) comments before saying that with absolute certainty.
