@@ -30,7 +30,7 @@ CREATE TABLE mention (
     score INTEGER NOT NULL,
     num_comments INTEGER NOT NULL,
     url TEXT NOT NULL,
-    sentiment TEXT NOT NULL DEFAULT 'neutral',
+    sentiment NUMERIC NOT NULL DEFAULT 0,
     PRIMARY KEY (stock_id, dt),
     CONSTRAINT fk_mention_stock FOREIGN KEY (stock_id) REFERENCES stock (id)
 );
