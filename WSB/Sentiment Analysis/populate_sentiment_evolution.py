@@ -10,8 +10,19 @@ cursor.execute("""
 """)
 rows = cursor.fetchall()
 
-stonks = {}
 for row in rows:
-  stonk = row[stock_symbol]
-  stonks.add(stonk)
-  print(stonks)
+    sentiment = row['sentiment']
+    if sentiment > 0:
+        bullish_sentiment = sentiment
+    elif sentiment < 0:
+        bearish_sentiment = (-1) * sentiment
+
+    try:
+        cursor.execute('''
+            INSERT INTO sentiment_evolution (stock_id, dt, stock_symbol, mention_post_id, bullish_sentiment, bearish_sentiment)
+            VALUES (%s, %s, %s, %s, %s, %s)
+        ''', (row['stock_id'], row['dt'], row['stock_symbol'], row['post_id'], bullish_sentiment, bearish_sentiment))
+        connection.commit()
+
+    except Exception as e:
+        print(e)
