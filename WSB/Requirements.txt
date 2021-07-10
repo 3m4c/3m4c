@@ -6,3 +6,4 @@ praw
 psaw
 alpaca-trade-api
 psycopg2
+emoji
