@@ -17,8 +17,8 @@ rows = cursor.fetchall()
 def WSB_sentiment (message, score, num_comments):
     
     bullish = ['moon', 'mars', 'yolo', 'all', 'strong', "can't", 'tits', 'c', 'calls', 'call', 'btfd', 'undervalued', 'gains', 'gain', 'bull', 'bulls', 'bullish', 
-               'buy', 'dip', 'fuel', 'fire', 'squeeze', 'squeezing', 'squoze', 'squozing', 'holding', 'bought', 'hold', 'hodl', 'hodling', 'holding', 'yoloed',
-               "yolo'ed", 'mooning',
+               'buy', 'dip', 'fuel', 'fire', 'squeeze', 'squeezing', 'squoze', 'squozing', 'holding', 'bought', 'buying', 'hold', 'hodl', 'hodling', 'holding', 
+               'yoloed', "yolo'ed", 'mooning',
                '💎', '🤲', '🤤', '🌝', '🙌🏻', '🙌', '👐', '✋', '🦍', '🚀', '🌙', '📈', '🌚'
               ]
     
