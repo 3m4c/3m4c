@@ -33,13 +33,12 @@ def WSB_sentiment (message, score, num_comments):
     bearish_count = 0
     magnitude = score + num_comments
     
-    '''em = 'Hey 😷😷😷'
-    message_split_emoji = emoji.get_emoji_regexp().split(message)
+    message_lowercase = message.lower()
+    message_split_emoji = emoji.get_emoji_regexp().split(message_lowercase)
     message_split_whitespace = [substr.split() for substr in message_split_emoji]
-    message_split = functools.reduce(operator.concat, message_split_whitespace)'''
+    message_split = functools.reduce(operator.concat, message_split_whitespace)
     
-    words = message.lower().split()
-    for word in words:
+    for word in message_split:
         if word in bullish:
             bullish_count += 1
         elif word in bearish:
