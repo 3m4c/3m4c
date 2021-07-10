@@ -1,6 +1,10 @@
 import config
 import psycopg2
 import psycopg2.extras
+import functools
+import operator
+import re
+import emoji
 
 connection = psycopg2.connect(host = config.DB_HOST, database = config.DB_NAME, user = config.DB_USER, password = config.DB_PASS)
 cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
@@ -28,6 +32,11 @@ def WSB_sentiment (message, score, num_comments):
     bullish_count = 0
     bearish_count = 0
     magnitude = score + num_comments
+    
+    '''em = 'Hey 😷😷😷'
+    message_split_emoji = emoji.get_emoji_regexp().split(message)
+    message_split_whitespace = [substr.split() for substr in message_split_emoji]
+    message_split = functools.reduce(operator.concat, message_split_whitespace)'''
     
     words = message.lower().split()
     for word in words:
