@@ -14,11 +14,14 @@ cursor.execute(
 )
 rows = cursor.fetchall()
 
-# df = pd.DataFrame(data = rows)
+df = pd.DataFrame(data = rows, columns=('stock_symbol', 'dt', 'bullish_sentiment', 'bearish_sentiment'))
 
+sorted_values = df.sort_values('stock_symbol')
+
+stock_to_plot = sorted_values[sorted_values['stock_symbol'] == 'AMC']
 sns.relplot(
-    data=rows, kind="line",
-    x="dt", y="bullish_sentiment", col="align",
-    hue="stock_symbol", size="coherence", style="choice"
-    #facet_kws=dict(sharex=False),
+    data=stock_to_plot, kind="line",
+    x="dt", y="bullish_sentiment"
 )
+
+plt.show()
