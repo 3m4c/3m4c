@@ -13,7 +13,7 @@ api = PushshiftAPI()
 
 # creating two similar dictionaries where the keys are the stocks ids from the stock table
 # and the values are the tickers with and without the $ sign (e.g. $GME)
-# the third dictionary is the inverse of the second one
+# the third dictionary is the inverse of the second one: we will need it to access the ticker from the id
 cursor.execute(
     '''SELECT * FROM stock'''
 )
@@ -72,6 +72,7 @@ for submission in submissions:
                         
                     stock_symbol = stock_dict3[stock_id]
                     
+                    #inserting the data into the 'mention' table
                     try:
                         cursor.execute('''
                         INSERT INTO mention (dt, stock_id, stock_symbol, message, url, post_id, score, num_comments)
