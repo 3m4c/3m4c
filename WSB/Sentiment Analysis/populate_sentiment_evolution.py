@@ -16,16 +16,19 @@ rows = cursor.fetchall()
 for row in rows:
     
     # we already have a sentiment score from the mention table, 
-    # know we split it into two columns
+    # now we split it into two different columns
     sentiment = row['sentiment']
     bullish_sentiment = 0
     bearish_sentiment = 0
+    
+    # if the sentiment is bullish, it goes into the bullish_sentiment column,
+    # conversely, if bearish, it will be recorded in the bearish_sentiment column (with a positive value)
     if sentiment > 0:
         bullish_sentiment = sentiment
-
     elif sentiment < 0:
         bearish_sentiment = (-1) * sentiment
-
+        
+    # now we execute the query
     try:
         cursor.execute('''
             INSERT INTO sentiment_evolution (stock_id, dt, stock_symbol, mention_post_id, bullish_sentiment, bearish_sentiment)
