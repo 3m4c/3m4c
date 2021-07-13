@@ -15,7 +15,8 @@ rows = cursor.fetchall()
 #iterating through the data we have just extracted
 for row in rows:
     
-    #
+    # we already have a sentiment score from the mention table, 
+    # know we split it into two columns
     sentiment = row['sentiment']
     bullish_sentiment = 0
     bearish_sentiment = 0
