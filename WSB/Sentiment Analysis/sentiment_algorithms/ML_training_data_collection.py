@@ -6,27 +6,30 @@ connection = psycopg2.connect(host = config.DB_HOST, database = config.DB_NAME, 
 cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
 cursor.execute("""
-    SELECT stock_id, stock_symbol, dt, post_id, message, sentiment FROM mention
+    SELECT stock_symbol, post_id, message FROM mention
 """)
 rows = cursor.fetchall()
 
 for row in rows:
     print(row['message'])
-    bullish_sentiment = 0
-    bearish_sentiment = 0
+    sentiment = 0
     sentiment_input = input(f'questo post ti sembra bullish (a), bearish (s) o neutral (d)?: ')
     if sentiment_input == 'a':
-        bullish_sentiment = 1
+        sentiment = 1
     if sentiment_input == 's':
-        bearish_sentiment = -1
+        sentiment = -1
     
-    
+    post_id = row['post_id']
+    stock_symbol = row['stock_symbol']
+
     try:
         cursor.execute('''
-            INSERT INTO sentiment_evolution (stock_id, dt, stock_symbol, mention_post_id, bullish_sentiment, bearish_sentiment)
-            VALUES (%s, %s, %s, %s, %s, %s)
-        ''', (row['stock_id'], row['dt'], row['stock_symbol'], row['post_id'], bullish_sentiment, bearish_sentiment))
+        UPDATE mention
+        SET sentiment = %s
+        WHERE post_id = %s AND stock_symbol = %s
+        ''', (result, post_id, stock_symbol))
         connection.commit()
 
     except Exception as e:
         print(e)
+        connection.rollback()
