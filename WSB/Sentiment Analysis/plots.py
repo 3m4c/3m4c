@@ -10,7 +10,7 @@ connection = psycopg2.connect(host=config.DB_HOST, database=config.DB_NAME, user
 cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
 cursor.execute(
-    '''SELECT stock_symbol, dt, bullish_sentiment, bearish sentiment FROM sentiment_evolution'''
+    '''SELECT stock_symbol, dt, bullish_sentiment, bearish_sentiment FROM sentiment_evolution'''
 )
 rows = cursor.fetchall()
 
