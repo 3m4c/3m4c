@@ -8,5 +8,5 @@ alpaca-trade-api
 psycopg2
 emoji
 scikit-learn
-pyspark
+spark-nlp==3.1.2 pyspark
 tensorflow
