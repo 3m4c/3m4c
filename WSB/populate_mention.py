@@ -33,7 +33,7 @@ endtime = int(dt.datetime(2021, 6, 20).timestamp())
 submissions = api.search_submissions(after = start_time,
                                          before = endtime,
                                          subreddit = 'wallstreetbets',
-                                         filter = ['url', 'author', 'title', 'subreddit', 'id']
+                                         filter = ['url', 'author', 'title', 'body', 'subreddit', 'id']
                                           )
 
 # iterating through the submissions (posts)
@@ -75,9 +75,9 @@ for submission in submissions:
                     #inserting the data into the 'mention' table
                     try:
                         cursor.execute('''
-                        INSERT INTO mention (dt, stock_id, stock_symbol, message, url, post_id, score, num_comments)
-                        VAlUES (%s, %s, %s, %s, %s, %s, %s, %s)
-                        ''', (submitted_time, stock_id, stock_symbol, submission.title, submission.url, submission_id, score, num_comments))
+                        INSERT INTO mention (dt, stock_id, stock_symbol, title, body, url, post_id, score, num_comments)
+                        VAlUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+                        ''', (submitted_time, stock_id, stock_symbol, submission.title, submission.body, submission.url, submission_id, score, num_comments))
                         connection.commit()
 
                     except Exception as e:
