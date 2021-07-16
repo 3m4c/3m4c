@@ -7,12 +7,12 @@ connection = psycopg2.connect(host = config.DB_HOST, database = config.DB_NAME, 
 cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
 cursor.execute(
-    '''SELECT message FROM mention'''
+    '''SELECT title, body FROM mention'''
 )
 rows = cursor.fetchall()
 
 for row in rows:
-    text = row['message']
+    text = row['title'] + row['body']
     blob = TextBlob(text)
     
     # if the post has more sentences, it gets split
