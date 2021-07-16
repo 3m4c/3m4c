@@ -6,12 +6,12 @@ connection = psycopg2.connect(host = config.DB_HOST, database = config.DB_NAME, 
 cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
 cursor.execute("""
-    SELECT stock_symbol, post_id, message FROM mention
+    SELECT stock_symbol, post_id, title, body FROM mention
 """)
 rows = cursor.fetchall()
 
 for row in rows:
-    print(row['message'])
+    print(f'{row["title"]} \n {row["body"]}')
     sentiment = 0
     sentiment_input = input(f'questo post ti sembra bullish (a), bearish (s) o neutral (d)?: ')
     if sentiment_input == 'a':
