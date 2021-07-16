@@ -10,11 +10,11 @@ connection = psycopg2.connect(host = config.DB_HOST, database = config.DB_NAME, 
 cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
 
 cursor.execute(
-    '''SELECT stock_id, stock_symbol, message, score, num_comments FROM mention'''
+    '''SELECT stock_id, stock_symbol, title, body, score, num_comments FROM mention'''
 )
 rows = cursor.fetchall()
 
-def WSB_sentiment (message, score, num_comments):
+def WSB_sentiment (title, body, score, num_comments):
     
     bullish = ['moon', 'mars', 'yolo', 'all', 'strong', "can't", 'tits', 'c', 'calls', 'call', 'btfd', 'undervalued', 'gains', 'gain', 'bull', 'bulls', 'bullish', 
                'buy', 'dip', 'fuel', 'fire', 'squeeze', 'squeezing', 'squoze', 'squozing', 'holding', 'bought', 'buying', 'hold', 'hodl', 'hodling', 'holding', 
@@ -30,12 +30,13 @@ def WSB_sentiment (message, score, num_comments):
     bearish_count = 0
     magnitude = score + num_comments
     
-    message_lowercase = message.lower()
-    message_split_emoji = emoji.get_emoji_regexp().split(message_lowercase)
-    message_split_whitespace = [substr.split() for substr in message_split_emoji]
-    message_split = functools.reduce(operator.concat, message_split_whitespace)
+    text = title + body
+    text_lowercase = text.lower()
+    text_split_emoji = emoji.get_emoji_regexp().split(text_lowercase)
+    text_split_whitespace = [substr.split() for substr in text_split_emoji]
+    text_split = functools.reduce(operator.concat, text_split_whitespace)
     
-    for word in message_split:
+    for word in text_split:
         if word in bullish:
             bullish_count += 1
         elif word in bearish:
@@ -49,7 +50,7 @@ def WSB_sentiment (message, score, num_comments):
         return magnitude * (-1)
     
 for row in rows:
-    result = WSB_sentiment(row['message'], row['score'], row['num_comments'])
+    result = WSB_sentiment(row['title'], row['body'], row['score'], row['num_comments'])
     post_id = row['post_id']
     stock_symbol = row['stock_symbol']
 
