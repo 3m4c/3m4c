@@ -71,13 +71,17 @@ for submission in submissions:
                         stock_id = stock_dict2[ticker]
                         
                     stock_symbol = stock_dict3[stock_id]
-                    
-                    #inserting the data into the 'mention' table
+                    body = sub_praw.selftext
+                    flair = sub_praw.link_flair_text
+
+                    # inserting the data into the 'mention' table
                     try:
                         cursor.execute('''
                         INSERT INTO mention (dt, stock_id, stock_symbol, title, body, flair, url, post_id, score, num_comments)
-                        VAlUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
-                        ''', (submitted_time, stock_id, stock_symbol, submission.title, submission.body, submission.flair, submission.url, submission_id, score, num_comments))
+                        VAlUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                        ''', (
+                        submitted_time, stock_id, stock_symbol, submission.title, body, flair,
+                        submission.url, submission_id, score, num_comments))
                         connection.commit()
 
                     except Exception as e:
