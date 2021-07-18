@@ -3,7 +3,7 @@ CREATE TABLE stock (
     symbol TEXT NOT NULL,
     name TEXT NOT NULL,
     exchange TEXT NOT NULL,
-    is_etf BOOLEAN NOT NULL,
+    is_etf BOOLEAN NOT NULL
 );
 
 CREATE TABLE stock_price (
