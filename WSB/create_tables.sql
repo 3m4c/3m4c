@@ -30,6 +30,7 @@ CREATE TABLE mention (
     flair TEXT NOT NULL,
     post_id TEXT NOT NULL,
     score INTEGER NOT NULL,
+    upvote_ratio NUMERIC NOT NULL,
     num_comments INTEGER NOT NULL,
     url TEXT NOT NULL,
     sentiment NUMERIC NOT NULL DEFAULT 0,
