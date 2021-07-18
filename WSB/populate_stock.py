@@ -20,7 +20,7 @@ for asset in assets:
     cursor.execute(
         '''INSERT INTO stock (name, symbol, exchange, is_etf)
          VALUES (%s, %s, %s, %s)
-         ''', (asset.name, asset.symbol, asset.exchange, False)
+         ''', (asset.name, asset.symbol, asset.exchange, False) #we still have to populate the is_etf column!
     )
 
 # executing the cursor.execute command onto the database
