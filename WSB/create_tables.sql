@@ -27,6 +27,7 @@ CREATE TABLE mention (
     dt TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     title TEXT NOT NULL,
     body TEXT NOT NULL,
+    flair TEXT NOT NULL,
     post_id TEXT NOT NULL,
     score INTEGER NOT NULL,
     num_comments INTEGER NOT NULL,
