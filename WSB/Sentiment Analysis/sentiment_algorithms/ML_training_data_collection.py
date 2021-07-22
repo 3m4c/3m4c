@@ -2,11 +2,14 @@ import config
 import psycopg2
 import psycopg2.extras
 
-connection = psycopg2.connect(host = config.DB_HOST, database = config.DB_NAME, user = config.DB_USER, password = config.DB_PASS)
-cursor = connection.cursor(cursor_factory = psycopg2.extras.DictCursor)
+connection = psycopg2.connect(host=config.DB_HOST, database=config.DB_NAME, user=config.DB_USER,
+                              password=config.DB_PASS)
+cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
 cursor.execute("""
-    SELECT stock_symbol, post_id, title, body, flair FROM mention
+    SELECT stock_symbol, post_id, dt, title, body, flair 
+    FROM mention
+    WHERE dt::date = '2021-06-09' --we then take some random days and label posts sentiment
 """)
 rows = cursor.fetchall()
 
@@ -18,7 +21,7 @@ for row in rows:
         sentiment = 1
     if sentiment_input == 's':
         sentiment = -1
-    
+
     post_id = row['post_id']
     stock_symbol = row['stock_symbol']
 
@@ -27,7 +30,7 @@ for row in rows:
         UPDATE mention
         SET sentiment = %s
         WHERE post_id = %s AND stock_symbol = %s
-        ''', (result, post_id, stock_symbol))
+        ''', (sentiment, post_id, stock_symbol))
         connection.commit()
 
     except Exception as e:
