@@ -39,7 +39,7 @@ submissions = api.search_submissions(after = start_time,
 # iterating through the submissions (posts)
 for submission in submissions:
 
-    # splitting the title into words: any ticker gets (temporarily) stored in the cashtags list
+    # splitting the title into words: any ticker gets temporarily stored in the tickers list
     words = submission.title.split()
     tickers = list(set(filter(lambda word: word.lower().startswith('$') or word in stock_dict2, words)))
 
