@@ -12,30 +12,35 @@ sample2 = pd.read_csv()
 sample3 = pd.read_csv()
 
 
-for row in sample1:
-    print(f'{row["title"]} \n {row["flair"]} \n {row["body"]}')
-    sentiment = 'neutral'
-    sentiment_input = input(f'questo post ti sembra bullish (a), bearish (s), neutral (d) o controversial (f)?: ')
-    if sentiment_input == 'a':
-        sentiment = 'bullish'
-    if sentiment_input == 's':
-        sentiment = 'bearish'
-    if sentiment_input == 'd':
+def annotator(sample)
+    for row in sample:
+        print(f'{row["title"]} \n {row["flair"]}, {row["upvote_ratio"]} \n {row["body"]}')
         sentiment = 'neutral'
-    if sentiment_input == 'f':
-        sentiment = 'controversial'
+        sentiment_input = input(f'questo post ti sembra bullish (a), bearish (s), neutral (d) o controversial (f)?: ')
+        if sentiment_input == 'a':
+            sentiment = 'bullish'
+        if sentiment_input == 's':
+            sentiment = 'bearish'
+        if sentiment_input == 'd':
+            sentiment = 'neutral'
+        if sentiment_input == 'f':
+            sentiment = 'controversial'
 
-    post_id = row['post_id']
-    stock_symbol = row['stock_symbol']
+        post_id = row['post_id']
+        stock_symbol = row['stock_symbol']
 
-    try:
-        cursor.execute('''
-        UPDATE mention
-        SET sentiment = %s
-        WHERE post_id = %s AND stock_symbol = %s
-        ''', (sentiment, post_id, stock_symbol))
-        connection.commit()
+        try:
+            cursor.execute('''
+            UPDATE mention
+            SET sentiment = %s
+            WHERE post_id = %s AND stock_symbol = %s
+            ''', (sentiment, post_id, stock_symbol))
+            connection.commit()
 
-    except Exception as e:
-        print(e)
-        connection.rollback()
+        except Exception as e:
+            print(e)
+            connection.rollback()
+            
+annotator(sample1)
+annotator(sample2)
+annotator(sample3)
