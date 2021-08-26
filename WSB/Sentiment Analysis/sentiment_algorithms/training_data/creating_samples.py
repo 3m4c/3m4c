@@ -18,7 +18,7 @@ cursor.execute("""
     WHERE dt::date BETWEEN '2020-02-13' AND '2020-03-27'
 """)
 sample1 = cursor.fetchall()
-random_sample1 = random.sample(rows, 500)
+random_sample1 = random.sample(sample1, 500)
 random_sample1 = pd.DataFrame.to_csv()
 
 cursor.execute("""
@@ -27,7 +27,7 @@ cursor.execute("""
     WHERE dt::date BETWEEN '2020-02-13' AND '2020-03-27'
 """)
 sample2 = cursor.fetchall()
-random_sample2 = random.sample(rows, 500)
+random_sample2 = random.sample(sample2, 500)
 random_sample2 = pd.DataFrame.to_csv()
 
 cursor.execute("""
@@ -36,5 +36,5 @@ cursor.execute("""
     WHERE dt::date BETWEEN '2020-02-13' AND '2020-03-27'
 """)
 sample3 = cursor.fetchall()
-random_sample3 = random.sample(rows, 500)
+random_sample3 = random.sample(sample3, 500)
 random_sample3 = pd.DataFrame.to_csv()
