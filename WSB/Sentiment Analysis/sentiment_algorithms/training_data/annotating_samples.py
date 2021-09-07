@@ -7,9 +7,9 @@ connection = psycopg2.connect(host=config.DB_HOST, database=config.DB_NAME, user
                               password=config.DB_PASS)
 cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-sample1 = pd.read_csv()
-sample2 = pd.read_csv()
-sample3 = pd.read_csv()
+sample1 = pd.read_csv('/sample1.csv')
+sample2 = pd.read_csv('/sample1.csv')
+sample3 = pd.read_csv('/sample1.csv')
 
 
 def annotator(sample, starting_row = 0)
