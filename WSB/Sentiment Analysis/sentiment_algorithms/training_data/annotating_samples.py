@@ -12,7 +12,7 @@ sample2 = pd.read_csv('/sample1.csv')
 sample3 = pd.read_csv('/sample1.csv')
 
 
-def annotator(sample, starting_row = 0)
+def annotator(sample, starting_row = 0):
     for row in sample[starting_row:]:
         print(f'{row["title"]} \n {row["flair"]}, {row["upvote_ratio"]} \n {row["body"]}')
         sentiment = 'neutral'
