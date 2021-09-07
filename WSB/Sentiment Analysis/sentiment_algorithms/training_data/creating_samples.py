@@ -18,22 +18,22 @@ cursor.execute("""
     WHERE dt::date BETWEEN '2020-02-13' AND '2020-03-27'
 """)
 sample1 = cursor.fetchall()
-sample1 = pd.DataFrame.to_csv('/sample1.csv')
+sample1 = pd.DataFrame(sample1).to_csv('/sample1.csv')
 
 cursor.execute("""
     SELECT stock_symbol, post_id, dt, title, body, flair, upvote_ratio 
     FROM mention
-    WHERE dt::date BETWEEN '2020-02-13' AND '2020-03-27'
+    WHERE dt::date BETWEEN '2021-05-11' AND '2021-06-10'
 """)
 sample2 = cursor.fetchall()
 random_sample2 = random.sample(sample2, 500)
-random_sample2 = pd.DataFrame.to_csv('/sample2.csv')
+random_sample2 = pd.DataFrame(random_sample2).to_csv('/sample2.csv')
 
 cursor.execute("""
     SELECT stock_symbol, post_id, dt, title, body, flair, upvote_ratio 
     FROM mention
-    WHERE dt::date BETWEEN '2020-02-13' AND '2020-03-27'
+    WHERE dt::date BETWEEN '2021-01-04' AND '2021-02-03'
 """)
 sample3 = cursor.fetchall()
 random_sample3 = random.sample(sample3, 500)
-random_sample3 = pd.DataFrame.to_csv('/sample3.csv')
+random_sample3 = pd.DataFrame(random_sample3).to_csv('/sample3.csv')
