@@ -8,9 +8,9 @@ connection = psycopg2.connect(host=config.DB_HOST, database=config.DB_NAME, user
                               password=config.DB_PASS)
 cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-# we take a third of samples from march 2020 crash (to train enough bearish posts), 
-# a third from january 2021
-# and a third from june 2021
+# we take all 231 samples from march 2020 crash (to train enough bearish posts), 
+# 500 from january 2021
+# and 500 from june 2021
 
 cursor.execute("""
     SELECT stock_symbol, post_id, dt, title, body, flair, upvote_ratio 
@@ -18,8 +18,7 @@ cursor.execute("""
     WHERE dt::date BETWEEN '2020-02-13' AND '2020-03-27'
 """)
 sample1 = cursor.fetchall()
-random_sample1 = random.sample(sample1, 500)
-random_sample1 = pd.DataFrame.to_csv('/sample1.csv')
+sample1 = pd.DataFrame.to_csv('/sample1.csv')
 
 cursor.execute("""
     SELECT stock_symbol, post_id, dt, title, body, flair, upvote_ratio 
