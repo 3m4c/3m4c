@@ -26,8 +26,8 @@ def annotator(sample, starting_row = 0):
         if sentiment_input == 'f':
             sentiment = 'controversial'
 
-        post_id = row['post_id']
-        stock_symbol = row['stock_symbol']
+        post_id = row[1]
+        stock_symbol = row[0]
 
         try:
             cursor.execute('''
