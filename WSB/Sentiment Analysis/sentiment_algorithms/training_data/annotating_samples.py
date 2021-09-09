@@ -32,7 +32,7 @@ def annotator(sample, starting_row = 0):
         try:
             cursor.execute('''
             UPDATE mention
-            SET sentiment = %s
+            SET sentiment = %s, is_train = TRUE
             WHERE post_id = %s AND stock_symbol = %s
             ''', (sentiment, post_id, stock_symbol))
             connection.commit()
