@@ -34,6 +34,7 @@ CREATE TABLE mention (
     num_comments INTEGER NOT NULL,
     url TEXT NOT NULL,
     sentiment NUMERIC NOT NULL DEFAULT 0,
+    is_train BOOLEAN NOT NULL DEFAULT FALSE
     PRIMARY KEY (stock_id, dt),
     CONSTRAINT fk_mention_stock FOREIGN KEY (stock_id) REFERENCES stock (id)
 );
