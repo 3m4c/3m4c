@@ -13,8 +13,8 @@ sample3 = pd.read_csv('/sample1.csv')
 
 
 def annotator(sample, starting_row = 0):
-    for row in sample[starting_row:]:
-        print(f'{row["title"]} \n {row["flair"]}, {row["upvote_ratio"]} \n {row["body"]}')
+        for row in sample[starting_row:].itertuples(index=False):
+        print(f'{row[3]} \n {row[4]} \n {row[5]} \n {row[6]}')
         sentiment = 'neutral'
         sentiment_input = input(f'questo post ti sembra bullish (a), bearish (s), neutral (d) o controversial (f)?: ')
         if sentiment_input == 'a':
