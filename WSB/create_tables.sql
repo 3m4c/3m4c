@@ -33,7 +33,7 @@ CREATE TABLE mention (
     upvote_ratio NUMERIC NOT NULL,
     num_comments INTEGER NOT NULL,
     url TEXT NOT NULL,
-    sentiment NUMERIC NOT NULL DEFAULT 0,
+    sentiment TEXT,
     is_train BOOLEAN NOT NULL DEFAULT FALSE
     PRIMARY KEY (stock_id, dt),
     CONSTRAINT fk_mention_stock FOREIGN KEY (stock_id) REFERENCES stock (id)
