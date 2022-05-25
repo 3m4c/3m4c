@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import nltk.stem
 from sklearn.model_selection import train_test_split, StratifiedKFold
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.linear_model import SGDClassifier
@@ -69,10 +70,7 @@ def removecentre(row):
 
 df.text = df.text.apply(removecentre)
 
-'''
-#stemming words makes the algorithm worse
-import nltk.stem
-
+# stemming yields better results than lemmatizing
 def stemrow(row):
   stemmer = nltk.stem.SnowballStemmer('english')
   words = row.split()
@@ -84,8 +82,8 @@ def stemrow(row):
 
 df.text = df.text.apply(stemrow)
 
-#what about lemmatizing?
-#it doesn't work either
+'''
+# we will comment out the lemmatization if needed for future projects
 import nltk
 nltk.download('wordnet')
 from nltk.stem import WordNetLemmatizer
