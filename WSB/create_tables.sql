@@ -8,6 +8,7 @@ CREATE TABLE stock (
 
 CREATE TABLE stock_price (
     stock_id INTEGER NOT NULL,
+    stock_symbol TEXT NOT NULL,
     dt TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     open NUMERIC NOT NULL,
     high NUMERIC NOT NULL,
