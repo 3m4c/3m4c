@@ -25,7 +25,7 @@ for row in rows:
 
 
 # creating a list of the symbols we want to know the price data of (these are just examples, it's not definitive)
-symbols = ['GME', 'AMC', 'SPCE', 'NOK', 'RKT', 'CRSR', 'BB', 'CRSR']
+symbols = ['GME', 'AMC', 'CLOV', 'WISH', 'UWMC', 'CLNE', 'NOK', 'SPCE', 'PLTR', 'TSLA', 'WKHS', 'SPY', 'RKT', 'CRSR', 'BB']
 
 
 # populating the stock_price table
