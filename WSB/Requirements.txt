@@ -9,3 +9,4 @@ psycopg2
 emoji
 scikit-learn
 nlkt
+yfinance
