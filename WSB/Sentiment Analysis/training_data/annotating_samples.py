@@ -11,7 +11,7 @@ sample1 = pd.read_csv('/sample1.csv')
 sample2 = pd.read_csv('/sample1.csv')
 sample3 = pd.read_csv('/sample1.csv')
 
-
+# we build a function that allows us to annotate the training posts
 def annotator(sample, starting_row = 0):
         for row in sample[starting_row:].itertuples(index=False):
         print(f'{row[3]} \n {row[4]} \n {row[5]} \n {row[6]}')
