@@ -6,7 +6,6 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.linear_model import SGDClassifier
 from sklearn.pipeline import Pipeline
 from sklearn import metrics
-import seaborn as sns
 
 # loading the dataset
 df_master = pd.read_csv('/content/wsb_dataset.csv')
